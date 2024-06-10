@@ -1,0 +1,44 @@
+{% extends "bjjorganizer/base.html" %}
+
+
+{% block title %}Tournament Details{% endblock %}
+
+{% block content %}
+<h2>{{ tournament.name }}</h2>
+<p>{{ tournament.date }} - {{ tournament.location }}</p>
+<p>{{ tournament.description }}</p>
+
+<h3>Competitors</h3>
+<ul class="list-group">
+    {% for competitor in tournament.competitors.all %}
+    <li class="list-group-item">
+        {{ competitor.name }} ({{ competitor.belt }} belt, {{ competitor.weight }} kg)
+    </li>
+    {% endfor %}
+</ul>
+
+<h3>Matches</h3>
+<ul class="list-group">
+    {% for match in tournament.matches.all %}
+    <li class="list-group-item">
+        {{ match.competitor1 }} vs {{ match.competitor2 }} {% if match.winner %} - Winner: {{ match.winner }}{% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+
+{% if not tournament.is_started %}
+    <form action="{% url 'start_tournament' tournament.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Start Tournament</button>
+    </form>
+{% endif %}
+{% if tournament.is_started %}
+    <a href="{% url 'render_bracket' tournament.id %}" class="btn btn-primary mt-2">View Bracket</a>
+{% endif %}
+
+<form action="{% url 'delete_tournament' tournament.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger mt-2">Delete Tournament</button>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "bjjorganizer/base.html" %}
+
+{% block title %}Tournaments{% endblock %}
+
+{% block content %}
+<h2>Tournaments</h2>
+{% if tournaments %}
+<div class="list-group">
+    {% for tournament in tournaments %}
+    <a href="{% url 'tournament_detail' tournament.id %}" class="list-group-item list-group-item-action">
+        <h5 class="mb-1">{{ tournament.name }}</h5>
+        <p class="mb-1">{{ tournament.date }} - {{ tournament.location }}</p>
+        <small>{{ tournament.tournamentType }}</small>
+        <small>{{ tournament.description }}</small>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+<p>No tournaments available.</p>
+{% endif %}
+{% endblock %}

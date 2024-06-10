@@ -1,0 +1,56 @@
+.bracket {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+.match-panel {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.match-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.competitor {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.vs {
+    margin: 0 15px;
+    font-size: 20px;
+    color: #999;
+}
+
+.match-status {
+    display: flex;
+    justify-content: center;
+}
+
+.winner,
+.pending {
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.winner {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.pending {
+    background-color: #f2dede;
+    color: #a94442;
+}

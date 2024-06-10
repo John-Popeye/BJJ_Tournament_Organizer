@@ -1,0 +1,44 @@
+{% extends 'bjjorganizer/base.html' %}
+{% load static %}
+{% block title %}Free-for-All Bracket{% endblock %}
+{% block footer_scripts %}
+    <script src="{% static 'js/brackets.js' %}" defer></script>{{ jsontournament |json_script }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/brackets-viewer@latest/dist/brackets-viewer.min.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brackets-viewer@latest/dist/brackets-viewer.min.js"></script>
+{% endblock %}
+{% block content %}
+<div class="bracket">
+    <h2>{{ tournament.name }} Bracket</h2>
+    {% for match in tournament.matches.all %}
+    <div class="container mt-5">
+    <div class="row">
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ match.competitor1 }} vs {{ match.competitor2 }}</h5>
+                        <p class="card-text">
+                            Tournament: {{ match.tournament.name }}<br>
+                            Date: {{ match.match_date|date:"M d, Y H:i" }}<br>
+                            {% if match.winner %}
+                                Winner: {{ match.winner }}
+                            {% else %}
+                                Winner: TBD
+                                <br>
+                                <a href="{% url 'select_winner' match.id %}?winner={{ match.competitor1.id }}" class="btn mt-3 btn-primary">{{ match.competitor1 }} Won</a>
+                                <br>
+                                <a href="{% url 'select_winner' match.id %}?winner={{ match.competitor2.id }}" class="btn mt-3 btn-primary">{{ match.competitor2 }} Won</a>
+                            {% endif %}
+                        </p>
+
+
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+    {% endfor %}
+</div>
+
+{% endblock %}
