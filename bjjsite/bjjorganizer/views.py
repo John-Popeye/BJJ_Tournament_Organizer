@@ -97,15 +97,15 @@ def render_bracket(request, tournament_id):
     if tournament.tournamentType == 'freeforall':
         template_name = 'bjjorganizer/free_for_all_bracket.html'
     else:
-        # Handle unsupported mode
+        # Nie zaimplementowane
         pass
     return render(request, template_name, {'tournament': tournament, 'jsontournament': serializers.serialize('json', [tournament])})
 
 @login_required(login_url="/app/login/")
 def select_winner(request, match_id):
-    if request.method == 'POST':
+    if request.method == 'GET':
         match = Match.objects.get(pk=match_id)
-        winner_id = request.POST.get('winner')
+        winner_id = request.GET.get('winner')
         if winner_id:
             match.winner_id = winner_id
             match.save()
